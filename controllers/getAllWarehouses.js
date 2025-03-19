@@ -5,7 +5,7 @@ export const getAllWarehouses = async (_req, res) => {
 
 	try {
 		const [results] = await connection.query(sql);
-		res.json(results);
+		return res.json(results);
 	} catch (error) {
 		return res.status(400).send(error);
 	}
