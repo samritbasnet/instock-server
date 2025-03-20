@@ -2,7 +2,8 @@ import connection from "../utils/mysql.js";
 
 export const getSingleInventory = async (req, res) => {
   const { id } = req.params;
-  const sql = "SELECT * FROM inventories WHERE id = ?";
+  const sql =
+    "SELECT inventories.*, warehouses.warehouse_name FROM inventories LEFT JOIN warehouses ON inventories.warehouse_id = warehouses.id WHERE inventories.id = ?;";
 
   if (!id) {
     return res.status(404);
