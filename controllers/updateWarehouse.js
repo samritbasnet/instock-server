@@ -30,9 +30,9 @@ export const upadateWarehouse = async (req, res) => {
   if (!validator.isEmail(contact_email)) {
     return res.status(400).json({ error: 'Invalid email address.' });
   }
-  const stripped = contact_phone.replace(/\D/g, '');
+  const numbers = contact_phone.replace(/\D/g, '');
 
-  if (!validator.isMobilePhone(stripped, 'any', { strictMode: false })) {
+  if (!validator.isMobilePhone(numbers, 'any', { strictMode: false })) {
     return res.status(400).json({ error: 'Invalid phone number.' });
   }
 
@@ -56,7 +56,7 @@ export const upadateWarehouse = async (req, res) => {
       country,
       contact_name,
       contact_position,
-      contact_phone,
+      numbers,
       contact_email,
       id,
     ]);
