@@ -17,7 +17,6 @@ export const postWarehouse = async (req, res) => {
 	) {
 		return res.status(400).send({ error: "All fields are required." });
 	}
-
 	if (!validator.isMobilePhone(contact_phone, "any", { strictMode: false })) {
 		return res.status(400).json({ error: "Invalid phone number." });
 	}
