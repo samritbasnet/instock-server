@@ -14,10 +14,10 @@ export const deleteWarehouse = async (req, res) => {
 		const { affectedRows } = results;
 
 		if (affectedRows < 1) {
-			return res.status(404).send("Warehouse not found to delete.");
+			return res.status(404).send({ error: "Warehouse not found to delete." });
 		}
 
-		return res.status(204).send("Successfully deleted warehouse.");
+		return res.status(204).send({ message: "Successfully deleted warehouse." });
 	} catch (err) {
 		console.error(err);
 		return res.status(500).send(err);
