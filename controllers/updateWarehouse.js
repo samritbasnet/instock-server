@@ -1,14 +1,5 @@
 import connection from '../utils/mysql.js';
-
-const isValidEmail = (email) => {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
-};
-
-const isValidPhone = (phone) => {
-  const phoneRegex = /^\+?[1-9]\d{0,2}\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
-  return phoneRegex.test(phone);
-};
+import validator from 'validator';
 
 export const upadateWarehouse = async (req, res) => {
   const { id } = req.params;
@@ -35,12 +26,16 @@ export const upadateWarehouse = async (req, res) => {
   ) {
     return res.status(400).send({ errors: 'All fields are required.' });
   }
-  if (!isValidPhone(contact_phone)) {
-    return res.status(400).send({ error: 'Invalid phone number format.' });
+
+  if (!validator.isEmail(contact_email)) {
+    return res.status(400).json({ error: 'Invalid email address.' });
   }
-  if (!isValidEmail(contact_email)) {
-    return res.status(400).send({ error: 'Invalid email address.' });
+  const stripped = contact_phone.replace(/\D/g, '');
+
+  if (!validator.isMobilePhone(stripped, 'any', { strictMode: false })) {
+    return res.status(400).json({ error: 'Invalid phone number.' });
   }
+
   try {
     const sql = `UPDATE warehouses
     SET 
