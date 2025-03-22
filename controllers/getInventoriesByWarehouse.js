@@ -4,7 +4,7 @@ export const getInventoriesByWarehouse = async (req, res) => {
   const { id } = req.params;
   try {
     const [wareHouseResult] = await connection.query('SELECT * FROM warehouses WHERE id = ?', [id]);
-    if (warehouseResult.length < 1) {
+    if (wareHouseResult.length < 1) {
       return res.status(404).json({ message: 'Warehouse not found' });
     }
     const [inventories] = await connection.query(
