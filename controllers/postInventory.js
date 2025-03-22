@@ -22,7 +22,7 @@ export const postInventory = async (req, res) => {
     ]);
 
     if (warehouseResults.length === 0) {
-      return res.status(400).json({ error: 'Invalid warehouse_id. Warehouse does not exist.' });
+      return res.status(400).json({ error: 'Invalid id Warehouse does not exist.' });
     }
     const sql = 'INSERT INTO inventories SET ?';
     const [results] = await connection.query(sql, {
